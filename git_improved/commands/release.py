@@ -37,7 +37,7 @@ def increment_version(version=None, patch=False, minor=False, major=False):
     if not incremented_part:
         incremented_part = 'patch'
     
-    bump_command = ['bump2version']
+    bump_command = ['bump2version', '--allow-dirty']
     if version:
         bump_command.extend(['--new-version', version])
     bump_command.append(incremented_part)
