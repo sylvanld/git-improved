@@ -88,3 +88,5 @@ def release_command():
     release = changelog.get_unreleased()
     changelog.create_release(new_version, release_file="docs/releases/%s.md"%new_version)
     changelog.save('docs/changelog.md')
+
+    commit_version_files(new_version)
