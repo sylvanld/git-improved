@@ -11,3 +11,14 @@
 	- Rename package
 	- Remove package name from imports
 
+**Documentation**
+
+- Add installation instruction (from PyPI)
+- Document commands in README: setup, done, release
+
+**Devops**
+
+- Setup automatic publication
+	- Create publish-package.yml
+	- Add 'devops' branch type
+
