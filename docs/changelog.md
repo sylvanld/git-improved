@@ -51,3 +51,8 @@
 - Log categories based on branch prefix instead of directly use prefix
 - Add new authorized branches prefixes (improve, improvement, enhancement)
 
+## [Unreleased]
+
+**Test**
+
+- Try to output an icon in a github commit...
