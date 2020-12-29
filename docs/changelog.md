@@ -40,4 +40,9 @@
 	- Checkout remote branches on interactive cancel
 	- Allow specifying the branch to delete
 	- Prevent running command cancel on main branch
+- Fix variable referenced before assignment in wip command
+
+**Structure**
+
+- Rename new_branch command to wip
 

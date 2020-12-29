@@ -10,7 +10,7 @@ setuptools.setup(
         'console_scripts': [
             'git-setup=git_improved.commands.setup:setup_command',
 
-            'git-wip=git_improved.commands.create_branch:create_wip_branch_command',
+            'git-wip=git_improved.commands.wip:create_wip_branch_command',
 
             'git-cancel=git_improved.commands.cancel:cancel_command',
             'git-done=git_improved.commands.done:done_command',
