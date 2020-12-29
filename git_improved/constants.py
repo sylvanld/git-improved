@@ -21,5 +21,5 @@ CATEGORIES_ICONS = {
     'Enhancement':      ':sparkles:',
     'Feature':          ':heavy_plus_sign:',
     'Structure':        ':hammer:',
-    'Release':          ':tada:'
+    'Release':          ':package:'
 }
