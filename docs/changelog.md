@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.0.2] - 2020-12-28
+## [Unreleased]
 
 **Structure**
 
