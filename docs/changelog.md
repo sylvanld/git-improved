@@ -22,7 +22,7 @@
 	- Create publish-package.yml
 	- Add 'devops' branch type
 
-## [Unreleased]
+## [0.0.3] - 2020-12-29
 
 **Feature**
 
