@@ -70,3 +70,5 @@
 	- Save all changes on a single commit
 	- Add save command parser
 
+## [0.0.8] - 2020-12-29
+
