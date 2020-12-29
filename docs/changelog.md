@@ -30,3 +30,14 @@
 	- Add 'cancel' command to delete current branch
 	- Add 'wip' command to create typed branches
 
+## [Unreleased]
+
+**Bugfix**
+
+- Prevent running command cancel from branch main
+	- Select branch to delete by index in interactive mode
+	- Improve delete command
+	- Checkout remote branches on interactive cancel
+	- Allow specifying the branch to delete
+	- Prevent running command cancel on main branch
+
