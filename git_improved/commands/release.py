@@ -2,6 +2,7 @@ import re
 import argparse
 import subprocess
 from ..changelog import Changelog
+from ..constants import CATEGORIES_ICONS
 
 
 def version(text):
@@ -73,7 +74,7 @@ def assert_branch_is_main():
 
 def commit_version_files(version):
     subprocess.call(['git', 'add', '.'])
-    subprocess.call(['git', 'commit', '-m' 'Release version %s'%version])
+    subprocess.call(['git', 'commit', '-m', '%s Release version %s'%(CATEGORIES_ICONS['Release'], version)])
     subprocess.call(['git', 'tag', version, '-m' 'Release version %s'%version])
     subprocess.call(['git', 'push', '-u', 'origin', 'main', '--follow-tags'])
 
