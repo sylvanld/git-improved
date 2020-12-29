@@ -30,7 +30,7 @@
 	- Add 'cancel' command to delete current branch
 	- Add 'wip' command to create typed branches
 
-## [Unreleased]
+## [0.0.4] - 2020-12-29
 
 **Bugfix**
 
