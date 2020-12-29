@@ -1,7 +1,7 @@
 import re
 import uuid
 import subprocess
-from ..constants import BRANCHES_PREFIXES
+from ..constants import BRANCHES_PREFIXES, CATEGORIES_ICONS
 from ..changelog import Changelog
 
 
@@ -62,6 +62,7 @@ def done_command():
     branch_type, branch_description = current_branch.split('/')
 
     change_category = BRANCHES_PREFIXES[branch_type]
+    category_icon = CATEGORIES_ICONS[change_category]
     branch_description = branch_description.strip().replace('_', ' ')
 
     commits = get_current_branch_commits()
@@ -83,4 +84,4 @@ def done_command():
     subprocess.call(['git', 'commit', '-m', 'update changelog'])
 
     squash_description = branch_description + "\n" + "\n".join(["- %s"%commit['message'] for commit in commits])
-    merge_squash(current_branch, message=squash_description)
+    merge_squash(current_branch, message=category_icon + " " + squash_description)

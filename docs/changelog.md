@@ -53,6 +53,9 @@
 
 ## [Unreleased]
 
-**Test**
+**Enhancement**
 
-- Try to output an icon in a github commit...
+- Add github icons in commit depending on branch type
+	- Append icon when merging a branch
+	- Associate an icon to each category
+
