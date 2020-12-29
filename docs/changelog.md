@@ -59,3 +59,5 @@
 	- Append icon when merging a branch
 	- Associate an icon to each category
 
+## [0.0.6] - 2020-12-29
+
