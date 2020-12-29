@@ -51,7 +51,7 @@
 - Log categories based on branch prefix instead of directly use prefix
 - Add new authorized branches prefixes (improve, improvement, enhancement)
 
-## [Unreleased]
+## [0.0.5] - 2020-12-29
 
 **Enhancement**
 
