@@ -46,3 +46,8 @@
 
 - Rename new_branch command to wip
 
+**Feature**
+
+- Log categories based on branch prefix instead of directly use prefix
+- Add new authorized branches prefixes (improve, improvement, enhancement)
+

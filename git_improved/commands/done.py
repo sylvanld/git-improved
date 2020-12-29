@@ -42,8 +42,6 @@ def get_current_branch_commits():
 def merge_squash(merged_branch, message=None):
     if message is None:
         message = "Merge branch %s"%merged_branch
-
-    print([merged_branch])
     
     subprocess.call(['git', 'checkout', 'main'])
     subprocess.call(['git', 'pull', '--rebase', 'origin', 'main'])
@@ -62,12 +60,15 @@ def done_command():
     
     current_branch = get_current_branch()
     branch_type, branch_description = current_branch.split('/')
+
+    change_category = BRANCHES_PREFIXES[branch_type]
     branch_description = branch_description.strip().replace('_', ' ')
+
     commits = get_current_branch_commits()
 
     # parse changelog and add branch changes to [unreleased] appropriate section
     changelog = Changelog.parse('docs/changelog.md')
-    changelog.add_change(branch_type, branch_description, [commit['message'] for commit in commits])
+    changelog.add_change(change_category, branch_description, [commit['message'] for commit in commits])
     changelog.save('docs/changelog.md')
 
     # open changelog for editing

@@ -8,5 +8,8 @@ BRANCHES_PREFIXES = {
     'structure': 'Structure',
     'devops': 'CI/CD',
     'ci': 'CI/CD',
-    'cd': 'CI/CD'
+    'cd': 'CI/CD',
+    'enhancement': 'Enhancement',
+    'improve': 'Enhancement',
+    'improvement': 'Enhancement'
 }
