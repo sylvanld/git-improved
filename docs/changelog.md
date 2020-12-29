@@ -61,3 +61,12 @@
 
 ## [0.0.6] - 2020-12-29
 
+## [Unreleased]
+
+**Feature**
+
+- Add 'save' command
+	- Add command git-save as entrypoint
+	- Save all changes on a single commit
+	- Add save command parser
+
