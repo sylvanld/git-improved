@@ -22,3 +22,11 @@
 	- Create publish-package.yml
 	- Add 'devops' branch type
 
+## [Unreleased]
+
+**Feature**
+
+- Create normalized branches
+	- Add 'cancel' command to delete current branch
+	- Add 'wip' command to create typed branches
+
