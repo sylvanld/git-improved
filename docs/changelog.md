@@ -117,4 +117,6 @@
 - Fix mistakes due to new command structure
 	- Fix wip command
 	- Fix commands name in setup
+	- Fix setup command
+	- Fix release command
 

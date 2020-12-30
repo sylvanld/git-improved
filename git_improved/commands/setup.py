@@ -2,6 +2,7 @@ import os
 import shutil
 import argparse
 import subprocess
+from ..command import Command
 from ..changelog import Changelog
 from ..configurations import ACTION_PUBLISH_RELEASE_ON_TAG, BUMPVERSION_CONFIG
 
@@ -33,7 +34,7 @@ class SetupCommand(metaclass=Command):
 
         return parser
 
-    def run(*, changelog_path='docs/changelog.md', releases_directory='docs/releases', github_action=True):
+    def run(*, changelog_path='docs/changelog.md', releases_directory='docs/releases', no_github_action=False):
         # create releases_directory and add a .gitkeep to ensure it wont be empty
         release_gitkeep_path = os.path.join(releases_directory, '.gitkeep')
         try:
@@ -53,7 +54,7 @@ class SetupCommand(metaclass=Command):
             os.makedirs(directory, exist_ok=True)
             changelog = Changelog.parse(changelog_path)
 
-        if github_action:
+        if not no_github_action:
             os.makedirs('.github/workflows', exist_ok=True)
             try:
                 open('.github/workflows/release-tag.yml')

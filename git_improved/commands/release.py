@@ -1,8 +1,10 @@
 import re
 import argparse
 import subprocess
+from ..command import Command
 from ..changelog import Changelog
 from ..constants import CATEGORIES_ICONS
+from ..exceptions import ValidationError
 from ..git import get_current_branch, ensure_main_branch
 
 
@@ -54,7 +56,7 @@ def commit_version_files(version):
     subprocess.call(['git', 'push', '-u', 'origin', 'main', '--follow-tags'])
 
 
-class ReleaseCommand(Command):
+class ReleaseCommand(metaclass=Command):
     def parser():
         parser = argparse.ArgumentParser()
 
