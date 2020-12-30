@@ -4,7 +4,7 @@ import setuptools
 setuptools.setup(
     name='git-improved',
     description='Add commands to simplify release and publish operation from Git CLI.',
-    version='0.0.8',
+    version='0.0.9',
     packages=setuptools.find_packages(),
     entry_points={
         'console_scripts': [
