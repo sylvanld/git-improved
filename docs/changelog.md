@@ -79,3 +79,8 @@
 	- Add command to delete a release from changelog
 	- Add a function to retrieve a version from changelog
 
+**Bugfix**
+
+- Reverse commits messages order in done command
+- Don't add description on squash if only one commit
+

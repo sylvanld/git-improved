@@ -65,7 +65,8 @@ def done_command():
     category_icon = CATEGORIES_ICONS[change_category]
     branch_description = branch_description.strip().replace('_', ' ')
 
-    commits = get_current_branch_commits()
+    # sort commits from the oldest to the most recent
+    commits = list(reversed(get_current_branch_commits()))
 
     # parse changelog and add branch changes to [unreleased] appropriate section
     changelog = Changelog.parse('docs/changelog.md')
@@ -83,5 +84,11 @@ def done_command():
     subprocess.call(['git', 'add', '.'])
     subprocess.call(['git', 'commit', '-m', 'update changelog'])
 
-    squash_description = branch_description + "\n" + "\n".join(["- %s"%commit['message'] for commit in commits])
-    merge_squash(current_branch, message=category_icon + " " + squash_description)
+    # workout squash commit message
+    squash_description = category_icon + " " + branch_description
+
+    if len(commits) > 1:
+        squash_description +=  "\n" + "\n".join(["- %s"%commit['message'] for commit in commits])
+    
+    # merge-squash all commits from current branch in main branch
+    merge_squash(current_branch, message=squash_description)
