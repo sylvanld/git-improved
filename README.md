@@ -2,7 +2,7 @@
 
 > Python package to add helpful git commands.
 
-## Installation
+## :package: Installation
 
 This package is available from [PyPI](https://pypi.org/project/git-improved/)
 
@@ -12,7 +12,7 @@ It can be installed using
 pip install git-improved
 ```
 
-## Additional commands
+## :star: Additional commands
 
 ```
 git setup
@@ -41,3 +41,14 @@ Deploy a new release for current project.
 - Increment version in all files it is referenced (configure in setup.cfg)
 - Replace [unreleased] section of changelog with new version.
 - Create a file in `docs/releases` to document this release.
+
+
+## :fire: RoadMap
+
+- Improve save command by adding an interactive mode to select staged files
+- Define a message syntax that indicates that a commit don't go in changelog (e.g prefix with ;)
+- Add an empty github action that run on unrelease. (can be used to remove packages from registries when tag is deleted)
+- Add a `--no-changelog` option to `done` command that indicates to not update changelog on merge.
+- Require user to be logged into git using a token.
+- Then retrieve author information from github to put in changelog
+- Study interesting uses cases of a rollback command that cancel changes introduced by a commit

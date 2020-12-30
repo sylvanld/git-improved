@@ -96,3 +96,9 @@
 
 - Document package on pypi
 
+## [Unreleased]
+
+**Documentation**
+
+- Update roadmap
+
