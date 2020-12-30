@@ -21,6 +21,30 @@ class ReleaseSection:
     def add_change(self, change, indent=1):
         self.changes.append(SectionChange(change, indent=indent))
 
+    def contains_change(self, searched_change):
+        for change in self.changes:
+            if change.description == searched_change.description:
+                return True
+        return False
+
+    def difference(self, section):
+        if section is None:
+            return None
+        
+        if self.title != section.title:
+            raise ValueError("Can't compare different sections...")
+
+        changes = []
+        for change in self.changes:
+            if not section.contains_change(change):
+                changes.append(change)
+        
+        if len(changes) == 0:
+            return None
+        
+        return ReleaseSection(title=self.title, changes=changes)
+            
+
     def render(self):
         rendered = "**%s**\n\n"%sentence(self.title)
         
@@ -33,22 +57,48 @@ class ReleaseSection:
 
 
 class Release:
+    """
+    Abstraction used to document release in a changelog.
+    """
     def __init__(self, *, version, date, sections=None):
         self.version = version
         self.date = date
         self.sections = sections or []
 
+
     def add_section(self, section):
+        """
+        Add a section at the end of this release.
+        """
         self.sections.append(section)
 
+
     def get_section(self, title):
+        """
+        Extract a section from this release given its title.
+        """
         for section in self.sections:
-            if section.title.lower() == title:
+            if section.title.lower() == title.lower():
                 return section
         
         section = ReleaseSection(title=title)
         self.sections.append(section)
         return section
+
+
+    def difference(self, release):
+        """
+        Workout a release that is the difference between this release and another.
+        """
+        sections = []
+        for section in self.sections:
+            existing_section = release.get_section(section.title)
+            diff = section.difference(existing_section)
+            if diff is not None:
+                sections.append(diff)    
+
+        return Release(version=self.version, date=self.date, sections=sections)
+
 
     def describe(self):
         """
@@ -62,6 +112,9 @@ class Release:
         return rendered
 
     def render(self, *, level=1):
+        """
+        Return a markdown description of this release.
+        """
         rendered = "#"*level + " [%s]"%self.version
 
         if self.date:

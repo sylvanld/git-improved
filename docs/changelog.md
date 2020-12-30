@@ -84,3 +84,9 @@
 - Reverse commits messages order in done command
 - Don't add description on squash if only one commit
 
+**Enhancement**
+
+- Describe squash message using changelog instead of commits
+	- Add a difference operation to compare releases
+	- Compute difference in changelog after it was edited
+
