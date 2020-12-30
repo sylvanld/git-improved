@@ -90,7 +90,7 @@
 	- Add a difference operation to compare releases
 	- Compute difference in changelog after it was edited
 
-## [Unreleased]
+## [0.0.10] - 2020-12-30
 
 **Documentation**
 
