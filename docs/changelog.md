@@ -112,3 +112,9 @@
 - Move shell and git functions in their own files
 - Create a command object to handle a command
 
+**Bugfix**
+
+- Fix mistakes due to new command structure
+	- Fix wip command
+	- Fix commands name in setup
+
