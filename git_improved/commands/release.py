@@ -3,8 +3,10 @@ import argparse
 import subprocess
 from ..changelog import Changelog
 from ..constants import CATEGORIES_ICONS
+from ..git import get_current_branch, ensure_main_branch
 
 
+# custom type used to parse semver
 def version(text):
     try:
         version_pattern = re.compile('^\d+\.\d+\.\d+$')
@@ -61,17 +63,6 @@ def increment_version(version=None, patch=False, minor=False, major=False):
     raise Exception("Version not found in setup.cfg")
 
 
-def get_current_branch():
-    result = subprocess.Popen(['git', 'branch', '--show-current'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    return result.stdout.read().decode('utf-8').strip()
-
-
-def assert_branch_is_main():
-    current_branch = get_current_branch()
-    if current_branch != 'main':
-        raise Exception('Releases can only be deployed from branch "main". Current branch: %s' % current_branch)
-
-
 def commit_version_files(version):
     subprocess.call(['git', 'add', '.'])
     subprocess.call(['git', 'commit', '-m', '%s Release version %s'%(CATEGORIES_ICONS['Release'], version)])
@@ -82,7 +73,7 @@ def commit_version_files(version):
 def release_command():
     args = parse_args()
 
-    assert_branch_is_main()
+    ensure_main_branch()
     new_version = increment_version(version=args.version, patch=args.patch, minor=args.minor, major=args.major)
     
     changelog = Changelog.parse('docs/changelog.md')

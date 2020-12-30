@@ -107,3 +107,7 @@
 	- Document unrelease command
 - Add killer feature to roadmap
 
+**Structure**
+
+- Move shell and git functions in their own files
+
