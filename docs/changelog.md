@@ -101,4 +101,8 @@
 **Documentation**
 
 - Update roadmap
+- Add commands documentation
+	- Document cancel command
+	- Document wip command
+	- Document unrelease command
 

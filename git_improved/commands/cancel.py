@@ -24,8 +24,8 @@ def get_current_branch():
     return result.stdout.read().decode('utf-8').strip()
 
 def parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--interactive", action='store_true', help="Prompt the name of the branch to be deleted")
+    parser = argparse.ArgumentParser("git cancel")
+    parser.add_argument("-i", "--interactive", action='store_true', help="Prompt names of multiple branches to delete")
     return parser.parse_args()
 
 def select_branches():
