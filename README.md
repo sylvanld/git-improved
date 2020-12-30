@@ -76,14 +76,25 @@ Delete a release from GitHub.
 
 ## :fire: RoadMap
 
+**Must**
+
+- :fire: Add a `--template` option to `setup` to propose a more complete initialization of the project based on its type.
+- :fire: Centralize commons functions used in commands in a library.
 - Display a warning in save command if working on main branch
     - Propose to create a wip branch from current changes to avoid commiting directly...
     - Add an option to reset X last commits from main, put them on a branch, an perform magic merge.
+- Add an empty github action that run on unrelease. (can be used to remove packages from registries when tag is deleted)
+- Add roadmap/assign commands to avoid many people working on same feature
+
+**Should**
+
+- Study interesting uses cases of a rollback command that cancel changes introduced by a commit
 - Implement interactive option of `unrelease` command.
 - Improve save command by adding an interactive mode to select staged files
-- Define a message syntax that indicates that a commit don't go in changelog (e.g prefix with ;)
-- Add an empty github action that run on unrelease. (can be used to remove packages from registries when tag is deleted)
 - Add a `--no-changelog` option to `done` command that indicates to not update changelog on merge.
+
+**Could**
+
+- Define a message syntax that indicates that a commit don't go in changelog (e.g prefix with ;)
 - Require user to be logged into git using a token.
 - Then retrieve author information from github to put in changelog
-- Study interesting uses cases of a rollback command that cancel changes introduced by a commit
