@@ -23,64 +23,55 @@ def commit_configuration():
         pass
 
 
-def setup_devops(changelog_path='docs/changelog.md', releases_directory='docs/releases', github_action=True):
-    # create releases_directory and add a .gitkeep to ensure it wont be empty
-    release_gitkeep_path = os.path.join(releases_directory, '.gitkeep')
-    try:
-        open(release_gitkeep_path)
-        print('[Warning] GitHub action already exists. Make sure it contains configuration to document changes on release.')
-    except FileNotFoundError:
-        os.makedirs(releases_directory, exist_ok=True)
-        with open(release_gitkeep_path, 'w') as gitkeep:
-            pass
-        print('Releases directory created in:', releases_directory)
-    
-    # create changelog if it doesn't exists
-    try:
-        changelog = Changelog.parse(changelog_path)
-    except FileNotFoundError:
-        directory = os.path.dirname(os.path.abspath(changelog_path))
-        os.makedirs(directory, exist_ok=True)
-        changelog = Changelog.parse(changelog_path)
+class SetupCommand(metaclass=Command):
+    def parser():
+        parser = argparse.ArgumentParser('git setup')
 
-    if github_action:
-        os.makedirs('.github/workflows', exist_ok=True)
+        parser.add_argument('--changelog-path', type=str, default='docs/changelog.md', help='Path to changelog.md')
+        parser.add_argument('--releases-directory', type=str, default='docs/releases', help='Directory where releases individuals changelogs are stored')
+        parser.add_argument('--no-github-action', action='store_true', help='Create github action to automagically document releases on github')
+
+        return parser
+
+    def run(*, changelog_path='docs/changelog.md', releases_directory='docs/releases', github_action=True):
+        # create releases_directory and add a .gitkeep to ensure it wont be empty
+        release_gitkeep_path = os.path.join(releases_directory, '.gitkeep')
         try:
-            open('.github/workflows/release-tag.yml')
+            open(release_gitkeep_path)
+            print('[Warning] GitHub action already exists. Make sure it contains configuration to document changes on release.')
         except FileNotFoundError:
-            with open('.github/workflows/release-tag.yml', 'w') as action_file:
-                action_file.write(ACTION_PUBLISH_RELEASE_ON_TAG)
-            print('Github action created in: github/workflows/release-tag.yml')
+            os.makedirs(releases_directory, exist_ok=True)
+            with open(release_gitkeep_path, 'w') as gitkeep:
+                pass
+            print('Releases directory created in:', releases_directory)
+        
+        # create changelog if it doesn't exists
+        try:
+            changelog = Changelog.parse(changelog_path)
+        except FileNotFoundError:
+            directory = os.path.dirname(os.path.abspath(changelog_path))
+            os.makedirs(directory, exist_ok=True)
+            changelog = Changelog.parse(changelog_path)
 
-    try:
-        open('setup.cfg')
-        print('[Warning] setup.cfg already exists, make sure that bumpversion section exists and neither commit nor tag options are enabled...')
-    except FileNotFoundError:
-        with open('setup.cfg', 'w') as setup:
-            setup.write(BUMPVERSION_CONFIG)
-        print('Created versioning configuration in: setup.cfg')
+        if github_action:
+            os.makedirs('.github/workflows', exist_ok=True)
+            try:
+                open('.github/workflows/release-tag.yml')
+            except FileNotFoundError:
+                with open('.github/workflows/release-tag.yml', 'w') as action_file:
+                    action_file.write(ACTION_PUBLISH_RELEASE_ON_TAG)
+                print('Github action created in: github/workflows/release-tag.yml')
 
-    if not is_git_initialized():
-        subprocess.call(['git', 'init'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        print('Git repository initialized...')
-    
-    commit_configuration()
+        try:
+            open('setup.cfg')
+            print('[Warning] setup.cfg already exists, make sure that bumpversion section exists and neither commit nor tag options are enabled...')
+        except FileNotFoundError:
+            with open('setup.cfg', 'w') as setup:
+                setup.write(BUMPVERSION_CONFIG)
+            print('Created versioning configuration in: setup.cfg')
 
-
-def parse_args():
-    parser = argparse.ArgumentParser('git setup')
-
-    parser.add_argument('--changelog-path', type=str, default='docs/changelog.md', help='Path to changelog.md')
-    parser.add_argument('--releases-directory', type=str, default='docs/releases', help='Directory where releases individuals changelogs are stored')
-    parser.add_argument('--no-github-action', action='store_true', help='Create github action to automagically document releases on github')
-
-    args = parser.parse_args()
-    return args
-
-
-def setup_command():
-    args = parse_args()
-    setup_devops(
-        changelog_path=args.changelog_path, 
-        releases_directory=args.releases_directory, 
-        github_action=not args.no_github_action)
+        if not is_git_initialized():
+            subprocess.call(['git', 'init'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            print('Git repository initialized...')
+        
+        commit_configuration()

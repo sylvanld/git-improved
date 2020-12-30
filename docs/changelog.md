@@ -110,4 +110,5 @@
 **Structure**
 
 - Move shell and git functions in their own files
+- Create a command object to handle a command
 

@@ -18,10 +18,10 @@ setuptools.setup(
             'git-wip=git_improved.commands.wip:create_wip_branch_command',
             'git-save=git_improved.commands.save:save_command',
 
-            'git-cancel=git_improved.commands.cancel:cancel_command',
-            'git-done=git_improved.commands.done:done_command',
+            'git-cancel=git_improved.commands.cancel:CancelCommand',
+            'git-done=git_improved.commands.done:DoneCommand',
 
-            'git-release=git_improved.commands.release:release_command',
+            'git-release=git_improved.commands.release:ReleaseCommand',
             'git-unrelease=git_improved.commands.unrelease:unrelease_command'
         ]
     },

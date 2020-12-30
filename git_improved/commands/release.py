@@ -17,22 +17,6 @@ def version(text):
     raise ValueError("Not a valid version: %s"%text)
 
 
-def parse_args():
-    parser = argparse.ArgumentParser()
-
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument('--version', type=version, help='Publish a release with given VERSION')
-    group.add_argument('--patch', action='store_true', help='Publish a release of type "patch" (auto-increment current version)')
-    group.add_argument('--minor', action='store_true', help='Publish a release of type "minor" (auto-increment current version)')
-    group.add_argument('--major', action='store_true', help='Publish a release of type "major" (auto-increment current version)')
-
-    args = parser.parse_args()
-    if not args.patch and not args.minor and not args.major and not args.version:
-        parser.print_help()
-        exit(0)
-    return args
-
-
 def increment_version(version=None, patch=False, minor=False, major=False):
     incremented_part = 'patch'*patch + 'minor'*minor + 'major'*major
 
@@ -70,15 +54,31 @@ def commit_version_files(version):
     subprocess.call(['git', 'push', '-u', 'origin', 'main', '--follow-tags'])
 
 
-def release_command():
-    args = parse_args()
+class ReleaseCommand(Command):
+    def parser():
+        parser = argparse.ArgumentParser()
 
-    ensure_main_branch()
-    new_version = increment_version(version=args.version, patch=args.patch, minor=args.minor, major=args.major)
-    
-    changelog = Changelog.parse('docs/changelog.md')
-    release = changelog.get_unreleased()
-    changelog.create_release(new_version, release_file="docs/releases/%s.md"%new_version)
-    changelog.save('docs/changelog.md')
+        group = parser.add_mutually_exclusive_group()
+        group.add_argument('--version', type=version, help='Publish a release with given VERSION')
+        group.add_argument('--patch', action='store_true', help='Publish a release of type "patch" (auto-increment current version)')
+        group.add_argument('--minor', action='store_true', help='Publish a release of type "minor" (auto-increment current version)')
+        group.add_argument('--major', action='store_true', help='Publish a release of type "major" (auto-increment current version)')
+        
+        return parser
 
-    commit_version_files(new_version)
+
+    def validate(args):
+        if not args.patch and not args.minor and not args.major and not args.version:
+            raise ValidationError("At least one argument must be supplied in VERSION, --patch, --minor, --major.")
+
+
+    def run(version=None, patch=False, minor=False, major=False):
+        ensure_main_branch()
+        new_version = increment_version(version=version, patch=patch, minor=minor, major=major)
+        
+        changelog = Changelog.parse('docs/changelog.md')
+        release = changelog.get_unreleased()
+        changelog.create_release(new_version, release_file="docs/releases/%s.md"%new_version)
+        changelog.save('docs/changelog.md')
+
+        commit_version_files(new_version)

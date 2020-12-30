@@ -1,16 +1,18 @@
 import argparse
 import subprocess
-
-def parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("description", nargs="?", help="Commit message")
-    return parser.parse_args()
+from ..command import Command
 
 
-def save_command():
-    args = parse_args()
+class SaveCommand(metaclass=Command):
+    def parser():
+        parser = argparse.ArgumentParser()
+        parser.add_argument("description", nargs="?", help="Commit message")
+        return parser
 
-    description = args.description or input("description: ")
-    subprocess.call(['git', 'add', '.'])
-    subprocess.call(['git', 'commit', '-m', description])
+    def run(*, description=None):
+        if not description:
+            description = input("description: ")
+        
+        subprocess.call(['git', 'add', '.'])
+        subprocess.call(['git', 'commit', '-m', description])
     

@@ -1,12 +1,7 @@
 import argparse
 import subprocess
+from ..command import Command
 from ..git import get_local_branches, get_remote_branches, get_current_branch, delete_branch
-
-
-def parse_args():
-    parser = argparse.ArgumentParser("git cancel")
-    parser.add_argument("-i", "--interactive", action='store_true', help="Prompt names of multiple branches to delete")
-    return parser.parse_args()
 
 
 def select_branches():
@@ -26,25 +21,29 @@ def select_branches():
     return [branches[i] for i in unwanted_indexes]
 
 
-def cancel_command():
-    """
-    Delete current branch from local and remote
-    """
+class CancelCommand(metaclass=Command):
+    def parser():
+        parser = argparse.ArgumentParser("git cancel")
+        parser.add_argument("-i", "--interactive", action='store_true', help="Prompt names of multiple branches to delete")
+        return parser
 
-    args = parse_args()
-    current_branch = get_current_branch()
+    def run(interactive=False):
+        """
+        Delete current branch from local and remote
+        """
+        current_branch = get_current_branch()
 
-    if args.interactive:
-        branches_to_delete = select_branches()
-    else:
-        if current_branch == 'main':
-            raise Exception("Can't delete branch main...")
-        input("Branch '%s' will be deleted. Press [enter] to continue..."%current_branch)
-        branches_to_delete = [current_branch]
-    
-    for unwanted_branch in branches_to_delete:
-        if unwanted_branch == current_branch:
-            # switch to main branch as you can't cancel a checked out branch
-            subprocess.call(['git', 'checkout', 'main'])
+        if interactive:
+            branches_to_delete = select_branches()
+        else:
+            if current_branch == 'main':
+                raise Exception("Can't delete branch main...")
+            input("Branch '%s' will be deleted. Press [enter] to continue..."%current_branch)
+            branches_to_delete = [current_branch]
         
-        delete_branch(unwanted_branch)
+        for unwanted_branch in branches_to_delete:
+            if unwanted_branch == current_branch:
+                # switch to main branch as you can't cancel a checked out branch
+                subprocess.call(['git', 'checkout', 'main'])
+            
+            delete_branch(unwanted_branch)
