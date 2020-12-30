@@ -1,4 +1,5 @@
 import re
+import os
 from datetime import datetime
 
 
@@ -148,12 +149,32 @@ class Changelog:
 
     def get_unreleased(self):
         for release in self.releases:
-            if release.version.lower == 'unreleased' or not release.date:
+            if release.version.lower() == 'unreleased' or not release.date:
                 return release
         
         unreleased = Release(version='Unreleased', date=None)
         self.releases.append(unreleased)
         return unreleased
+
+    def get_release(self, version):
+        for release in self.releases:
+            if release.version.lower() == version:
+                return release
+
+        raise KeyError("Version not found in changelog")
+
+    def delete_release(self, version):
+        try:
+            release = self.get_release(version)
+            self.releases.remove(release)
+        except KeyError:
+            print("[Warning] Can't delete version %s from changelog"%version)
+
+        try:
+            os.remove("docs/releases/%s.md"%version)
+        except FileNotFoundError:
+            print("[Warning] Can't delete 'docs/releases/%s.md': file not found"%version)
+
 
     def add_change(self, section, description, changes=None):
         unreleased = self.get_unreleased()

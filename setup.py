@@ -15,7 +15,9 @@ setuptools.setup(
 
             'git-cancel=git_improved.commands.cancel:cancel_command',
             'git-done=git_improved.commands.done:done_command',
-            'git-release=git_improved.commands.release:release_command'
+
+            'git-release=git_improved.commands.release:release_command',
+            'git-unrelease=git_improved.commands.unrelease:unrelease_command'
         ]
     },
     install_requires=[

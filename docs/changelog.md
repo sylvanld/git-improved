@@ -59,8 +59,6 @@
 	- Append icon when merging a branch
 	- Associate an icon to each category
 
-## [0.0.6] - 2020-12-29
-
 ## [0.0.7] - 2020-12-29
 
 **Feature**
@@ -70,5 +68,14 @@
 	- Save all changes on a single commit
 	- Add save command parser
 
-## [0.0.8] - 2020-12-29
+## [Unreleased]
+
+**Feature**
+
+- Add unrelease command to remove a tag
+	- Add a simple 'unrelease' command to remove release
+	- When deleting release, also remove section from changelog
+	- Add parser for unrelease command
+	- Add command to delete a release from changelog
+	- Add a function to retrieve a version from changelog
 
