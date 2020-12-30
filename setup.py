@@ -1,6 +1,11 @@
 import setuptools
 
 
+def load_long_description():
+    with open('README.md') as readme:
+        return readme.read()
+
+
 setuptools.setup(
     name='git-improved',
     description='Add commands to simplify release and publish operation from Git CLI.',
@@ -22,5 +27,7 @@ setuptools.setup(
     },
     install_requires=[
         'bump2version'
-    ]
+    ],
+    long_description=load_long_description(),
+    long_description_content_type="text/markdown"
 )

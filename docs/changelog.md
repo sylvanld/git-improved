@@ -90,3 +90,9 @@
 	- Add a difference operation to compare releases
 	- Compute difference in changelog after it was edited
 
+## [Unreleased]
+
+**Documentation**
+
+- Document package on pypi
+
