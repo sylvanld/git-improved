@@ -45,6 +45,9 @@ Deploy a new release for current project.
 
 ## :fire: RoadMap
 
+- Display a warning in save command if working on main branch
+    - Propose to create a wip branch from current changes to avoid commiting directly...
+    - Add an option to reset X last commits from main, put them on a branch, an perform magic merge.
 - Improve save command by adding an interactive mode to select staged files
 - Define a message syntax that indicates that a commit don't go in changelog (e.g prefix with ;)
 - Add an empty github action that run on unrelease. (can be used to remove packages from registries when tag is deleted)
