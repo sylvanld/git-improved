@@ -96,7 +96,7 @@
 
 - Document package on pypi
 
-## [Unreleased]
+## [0.0.11] - 2020-12-31
 
 **Documentation**
 
