@@ -120,3 +120,10 @@
 	- Fix setup command
 	- Fix release command
 
+**Feature**
+
+- Use a custom shell-menu to input in interactive mode
+	- Add a 'menu' class that allow single or multiple selection in a shell
+	- Use shell-menu to prompt branch to delete in cancel interactive mode
+- Add interactive unrelease using new menu
+

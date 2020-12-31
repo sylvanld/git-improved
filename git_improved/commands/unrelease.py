@@ -1,6 +1,8 @@
 import re
 import argparse
 import subprocess
+from ..git import get_releases
+from ..menu import Menu
 from ..command import Command
 from ..changelog import Changelog
 from ..exceptions import ValidationError
@@ -27,10 +29,11 @@ class UnreleaseCommand(metaclass=Command):
         if (args.interactive == False) == (args.version is None):
             raise ValidationError('Either version, or interactive mode is required. Not both...')
 
-    def run(interactive=False, version=None):
-        args = parse_args()
-        
+    def run(interactive=False, version=None):        
         if interactive:
-            raise NotImplementedError("Interactive mode is not implemented for this feature.")
+            select_releases_menu = Menu(choices=get_releases())
+            releases = select_releases_menu.prompt('Select releases to delete...')
+            for release in releases:
+                delete_release(release)
         else:
             delete_release(version)

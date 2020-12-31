@@ -1,24 +1,19 @@
 import argparse
 import subprocess
+from ..menu import Menu
 from ..command import Command
 from ..git import get_local_branches, get_remote_branches, get_current_branch, delete_branch
 
 
 def select_branches():
-    print('EXISTING BRANCHES')
     branches = set(get_local_branches() + get_remote_branches())
     try:
         branches.remove("main")
     except KeyError:
         pass
-    branches = list(branches)
 
-    for i in range(len(branches)):
-        print('[%s] %s'%(i, branches[i]))
-    
-    unwanted_indexes = input("\nBranches to delete? (coma separated): ")
-    unwanted_indexes = [int(i) for i in unwanted_indexes.replace(' ', '').strip().strip(',').split(',')]
-    return [branches[i] for i in unwanted_indexes]
+    select_branches_menu = Menu(choices=list(branches))
+    return select_branches_menu.prompt("Select branches to delete")
 
 
 class CancelCommand(metaclass=Command):

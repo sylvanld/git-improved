@@ -55,6 +55,11 @@ def get_remote_branches():
     return [branch[7:] for branch in check_output("git", "branch", "--remote", rows=True)]
 
 
+def get_releases():
+    silent_call("git", "fetch")
+    return check_output("git", "tag", rows=True)
+
+
 def delete_branch(branch_name, local=True, remote=True):
     if local:
         subprocess.call(['git', 'branch', '-D', branch_name])

@@ -89,7 +89,6 @@ Delete a release from GitHub.
 **Should**
 
 - Study interesting uses cases of a rollback command that cancel changes introduced by a commit
-- Implement interactive option of `unrelease` command.
 - Improve save command by adding an interactive mode to select staged files
 - Add a `--no-changelog` option to `done` command that indicates to not update changelog on merge.
 
