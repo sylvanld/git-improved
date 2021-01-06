@@ -135,3 +135,7 @@
 	- Structure templates definitions
 	- Add template subcommands (install, update, rm, list)
 
+**Enhancement**
+
+- Improve update command output
+

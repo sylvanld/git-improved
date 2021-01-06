@@ -10,7 +10,7 @@ from getpass import getpass
 from tqdm import tqdm
 from jinja2 import Environment, PackageLoader, select_autoescape
 from .shell import check_output
-from .git import get_remote_origin
+from .git import get_remote_origin, count_changes_from_remote
 
 
 def load_environment(template_path):
@@ -51,31 +51,6 @@ def setup_project(*, template, destination):
 
             with open(dest, 'w') as file:
                 file.write(template.render(**environment))
-
-
-def parse_template_command():
-    parser = argparse.ArgumentParser('git template')
-    subparsers = parser.add_subparsers(dest="command")
-
-    install_parser = subparsers.add_parser("install", help="install a template from a remote source")
-    install_parser.add_argument("alias", help="the name you want to use locally to reference this template")
-    install_parser.add_argument("origin", help="url of the repository where target template is hosted")
-    install_parser.add_argument("--branch", default="main", help="branch of the repo containing the template (default: main)")
-    install_parser.add_argument("--user", help="username used to autenticate if required")
-    install_parser.add_argument("--token", help="pass a token or password to authenticate if required")
-
-    update_parser = subparsers.add_parser("update", help="Update given templates (default to all).")
-    update_parser.add_argument("templates", nargs="*", help="If you pass a list of templates, only these templates will be updated...")
-
-    update_parser = subparsers.add_parser("list", help="List installed templates.")
-    update_parser.add_argument("search", nargs="?", help="Python-style regex that can be used to filter output")
-
-    args = parser.parse_args()
-    if not args.command:
-        parser.print_help()
-        exit(0)
-
-    return args
 
 
 class TemplateManifest:
@@ -196,6 +171,7 @@ class GitCredentials:
         })
         self.__save()
 
+
     @property
     def credentials(self):
         if not self.__credentials:
@@ -245,6 +221,7 @@ class Template:
         subprocess.call(['git', 'checkout', '-b', branch])
         subprocess.call(['git', 'pull', 'origin', branch])
         subprocess.call(['git', 'branch', '--set-upstream-to=origin/%s'%branch, branch])
+            
 
     def update(self, template, verbose=False):        
         template_path = os.path.join(self.templates_directory, template)
@@ -255,8 +232,7 @@ class Template:
             if verbose: # workout additionals infos in verbose mode
                 update_target += "\t(%s)"%get_remote_origin()
         
-            fetch_output = check_output("git", "fetch", "--dry-run")
-            if fetch_output:
+            if count_changes_from_remote():
                 subprocess.check_call(['git', 'pull'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 log_update(update_target, status="updated")
             else:
@@ -272,18 +248,3 @@ class Template:
         except FileNotFoundError as e:
             print("[Warning] %s not found!"%template_path)
         print('template removed:', template)
-            
-
-if __name__ == '__main__':
-    args = parse_template_command()
-    git_template = Template()
-
-    if args.command == "install":
-        # ensure that user can read this repository (=> public repo or proper authentication)
-        GitCredentials().require_credentials(repository=args.origin)
-        git_template.install(template=args.alias, origin=args.origin, branch=args.branch)
-    elif args.command == "update":
-        templates = args.templates if args.templates else git_template.search(abspath=False)
-        git_template.update(template)
-    elif args.command == "list":
-        templates = git_template.search(query=args.search)

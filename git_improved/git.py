@@ -36,6 +36,12 @@ def ensure_branch_mergeable():
         raise Exception("Can't perform magic merge on branch of type %s"%branch_prefix)
 
 
+def count_changes_from_remote():
+    current_branch = get_current_branch()
+    changes_count = int(check_output("git", "rev-list", "{0}..origin/{0}".format(current_branch), "--count"))
+    return changes_count
+
+
 def get_current_branch():
     result = subprocess.Popen(['git', 'branch', '--show-current'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return result.stdout.read().decode('utf-8').strip()
