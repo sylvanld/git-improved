@@ -127,3 +127,11 @@
 	- Use shell-menu to prompt branch to delete in cancel interactive mode
 - Add interactive unrelease using new menu
 
+## [Unreleased]
+
+**Feature**
+
+- Add template command
+	- Structure templates definitions
+	- Add template subcommands (install, update, rm, list)
+

@@ -46,6 +46,9 @@ def get_current_branch_commits():
     return [m.groupdict() for m in LOG_COMMIT_PATTERN.finditer(result.stdout.read().decode('utf-8'))]
 
 
+def get_remote_origin():
+    return check_output('git', 'remote', 'get-url', 'origin')
+
 def get_local_branches():
     return [branch.split()[-1] for branch in check_output("git", "branch", rows=True)]
 

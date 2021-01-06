@@ -1,4 +1,26 @@
+import os
 import subprocess
+
+
+def display_table(items):
+    terminal_height, terminal_width = [int(x) for x in os.popen('stty size', 'r').read().split()]
+
+    items = sorted(items)
+    max_width = max(len(item) for item in items) + 4
+
+    table_width = terminal_width // max_width
+    table_height = len(items) // table_width + 1    
+    
+    string = ""
+    for i in range(table_height):
+        for j in range(table_width):
+            index = j*table_height+i
+            if index < len(items):
+                item = items[index]
+                string += item.ljust(max_width)
+        string += "\n"
+    
+    print(string)
 
 
 def silent_call(*args):

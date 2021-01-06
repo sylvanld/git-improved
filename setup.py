@@ -14,6 +14,7 @@ setuptools.setup(
     entry_points={
         'console_scripts': [
             'git-setup=git_improved.commands.setup:SetupCommand',
+            'git-template=git_improved.commands.template:TemplateCommand',
 
             'git-wip=git_improved.commands.wip:WipCommand',
             'git-save=git_improved.commands.save:SaveCommand',
@@ -26,7 +27,10 @@ setuptools.setup(
         ]
     },
     install_requires=[
-        'bump2version'
+        'bump2version',
+        'jinja2',
+        'requests',
+        'tqdm'
     ],
     long_description=load_long_description(),
     long_description_content_type="text/markdown"

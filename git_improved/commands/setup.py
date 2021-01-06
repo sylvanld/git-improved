@@ -2,6 +2,7 @@ import os
 import shutil
 import argparse
 import subprocess
+from ..templates import TEMPLATES
 from ..command import Command
 from ..changelog import Changelog
 from ..configurations import ACTION_PUBLISH_RELEASE_ON_TAG, BUMPVERSION_CONFIG
@@ -28,13 +29,16 @@ class SetupCommand(metaclass=Command):
     def parser():
         parser = argparse.ArgumentParser('git setup')
 
+        parser.add_argument('--template', type=str, choices=TEMPLATES.keys(), help='Template used to initiate project structure')
         parser.add_argument('--changelog-path', type=str, default='docs/changelog.md', help='Path to changelog.md')
         parser.add_argument('--releases-directory', type=str, default='docs/releases', help='Directory where releases individuals changelogs are stored')
         parser.add_argument('--no-github-action', action='store_true', help='Create github action to automagically document releases on github')
 
         return parser
 
-    def run(*, changelog_path='docs/changelog.md', releases_directory='docs/releases', no_github_action=False):
+    def run(*, template=None, changelog_path='docs/changelog.md', releases_directory='docs/releases', no_github_action=False):
+        #TEMPLATES[template]().apply()
+        #"""
         # create releases_directory and add a .gitkeep to ensure it wont be empty
         release_gitkeep_path = os.path.join(releases_directory, '.gitkeep')
         try:
@@ -76,3 +80,4 @@ class SetupCommand(metaclass=Command):
             print('Git repository initialized...')
         
         commit_configuration()
+        #"""
