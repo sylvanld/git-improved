@@ -29,8 +29,7 @@ setuptools.setup(
     install_requires=[
         'bump2version',
         'jinja2',
-        'requests',
-        'tqdm'
+        'requests'
     ],
     long_description=load_long_description(),
     long_description_content_type="text/markdown"

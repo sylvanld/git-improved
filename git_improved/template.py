@@ -8,8 +8,8 @@ import subprocess
 import importlib.util
 from getpass import getpass
 from tqdm import tqdm
-from jinja2 import Environment, PackageLoader, select_autoescape
-from .shell import check_output
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+from .shell import check_output, silent_call
 from .git import get_remote_origin, count_changes_from_remote
 
 
@@ -20,14 +20,20 @@ def load_environment(template_path):
     return configure.environment
 
 
-def setup_project(*, template, destination):
-    template_root = 'templates/%s'%template
+def setup_project(*, template, destination, verbose=False):
+    template_root = os.path.abspath(os.path.join(os.path.expanduser("~/.git-templates"), template))
     templates_path = os.path.join(template_root, 'template')
+
+    print(template_root)
+    print(templates_path)
+
+    if not os.path.isdir(templates_path):
+        raise FileNotFoundError("template/ folder not found in %s"%template_root)
 
     environment = load_environment(template_path=template_root)
 
     templating_engine = Environment(
-        loader=PackageLoader(__name__, template_root),
+        loader=FileSystemLoader(searchpath=templates_path),
         autoescape=select_autoescape(['py'])
     )
 
@@ -47,10 +53,13 @@ def setup_project(*, template, destination):
         for filename in obj[2]:
             source = os.path.join(source_folder, filename)
             dest = templating_engine.from_string(source.replace(templates_path, destination)).render(**environment)
-            template = templating_engine.get_template(source.replace(template_root, ''))
+            template = templating_engine.get_template(source.replace(templates_path, '').strip("/"))
 
             with open(dest, 'w') as file:
                 file.write(template.render(**environment))
+
+            if verbose:
+                print(dest, "created")
 
 
 class TemplateManifest:
@@ -232,6 +241,7 @@ class Template:
             if verbose: # workout additionals infos in verbose mode
                 update_target += "\t(%s)"%get_remote_origin()
         
+            silent_call("git", "fetch")
             if count_changes_from_remote():
                 subprocess.check_call(['git', 'pull'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 log_update(update_target, status="updated")

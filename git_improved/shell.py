@@ -2,7 +2,7 @@ import os
 import subprocess
 
 
-def display_table(items):
+def format_table(items):
     terminal_height, terminal_width = [int(x) for x in os.popen('stty size', 'r').read().split()]
 
     items = sorted(items)
@@ -19,8 +19,11 @@ def display_table(items):
                 item = items[index]
                 string += item.ljust(max_width)
         string += "\n"
-    
-    print(string)
+    return string
+
+
+def display_table(items):
+    print(format_table(items))
 
 
 def silent_call(*args):

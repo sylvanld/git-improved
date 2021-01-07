@@ -134,6 +134,9 @@
 - Add template command
 	- Structure templates definitions
 	- Add template subcommands (install, update, rm, list)
+- Change setup command
+	- Allow setup command to initiate a project from user-defined templates
+	- Add a verbose mode to display created files
 
 **Enhancement**
 
