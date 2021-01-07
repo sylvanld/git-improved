@@ -1,9 +1,15 @@
 import setuptools
+from git_improved.constants import GITHUB_ICONS_URLS
 
 
 def load_long_description():
     with open('README.md') as readme:
-        return readme.read()
+        content = readme.read()
+    
+    for icon, icon_url in GITHUB_ICONS_URLS.items():
+        content.replace(icon, f'<img src="{icon_url}">')
+
+    return content
 
 
 setuptools.setup(

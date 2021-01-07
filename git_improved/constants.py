@@ -23,3 +23,14 @@ CATEGORIES_ICONS = {
     'Structure':        ':hammer:',
     'Release':          ':package:'
 }
+
+GITHUB_ICONS_URLS = {
+    ':fire:': 'https://github.githubassets.com/images/icons/emoji/unicode/1f525.png',
+    ':books:': 'https://github.githubassets.com/images/icons/emoji/unicode/1f4da.png',
+    ':rocket:': 'https://github.githubassets.com/images/icons/emoji/unicode/1f680.png',
+    ':sparkles:': 'https://github.githubassets.com/images/icons/emoji/unicode/2728.png',
+    ':heavy_plus_sign:': 'https://github.githubassets.com/images/icons/emoji/unicode/2795.png',
+    ':hammer:': 'https://github.githubassets.com/images/icons/emoji/unicode/1f528.png',
+    ':package:': 'https://github.githubassets.com/images/icons/emoji/unicode/1f4e6.png',
+    ':star:': 'https://github.githubassets.com/images/icons/emoji/unicode/2b50.png'
+}

@@ -158,3 +158,11 @@
 
 - Remove old tqdm import that break template command
 
+## [Unreleased]
+
+**Bugfix**
+
+- Replace github-style emojis from readme on pypi
+	- Add a list of used github icons
+	- Replace github style icons in markdown when loading for pypi
+
