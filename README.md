@@ -78,13 +78,12 @@ Delete a release from GitHub.
 
 **Must**
 
-- :fire: Add a `--template` option to `setup` to propose a more complete initialization of the project based on its type.
-- :fire: Centralize commons functions used in commands in a library.
+- :fire: Handle changelog/squash message generation when more than one section is changed
+- :fire: Add roadmap/assign commands to avoid many people working on same feature
 - Display a warning in save command if working on main branch
     - Propose to create a wip branch from current changes to avoid commiting directly...
     - Add an option to reset X last commits from main, put them on a branch, an perform magic merge.
 - Add an empty github action that run on unrelease. (can be used to remove packages from registries when tag is deleted)
-- Add roadmap/assign commands to avoid many people working on same feature
 
 **Should**
 
