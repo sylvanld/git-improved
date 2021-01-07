@@ -1,5 +1,4 @@
 import argparse
-from tqdm import tqdm
 
 from ..exceptions import ValidationError
 from ..command import Command

@@ -7,7 +7,6 @@ import argparse
 import subprocess
 import importlib.util
 from getpass import getpass
-from tqdm import tqdm
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from .shell import check_output, silent_call
 from .git import get_remote_origin, count_changes_from_remote

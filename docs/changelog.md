@@ -152,3 +152,10 @@
 	- Document list templates command
 	- Document remove template command
 
+## [Unreleased]
+
+**Bugfix**
+
+- Remove dependency on tqdm
+	- Remove old tqdm import that break template command
+
