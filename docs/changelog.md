@@ -156,6 +156,5 @@
 
 **Bugfix**
 
-- Remove dependency on tqdm
-	- Remove old tqdm import that break template command
+- Remove old tqdm import that break template command
 
