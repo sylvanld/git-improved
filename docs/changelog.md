@@ -152,7 +152,7 @@
 	- Document list templates command
 	- Document remove template command
 
-## [Unreleased]
+## [0.1.2] - 2021-01-07
 
 **Bugfix**
 
