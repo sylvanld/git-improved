@@ -127,7 +127,7 @@
 	- Use shell-menu to prompt branch to delete in cancel interactive mode
 - Add interactive unrelease using new menu
 
-## [0.1.0] - 2021-01-07
+## [Unreleased]
 
 **Feature**
 
@@ -141,4 +141,14 @@
 **Enhancement**
 
 - Improve update command output
+
+**Documentation**
+
+- Document new templates workflow
+	- Remove release 0.1.0 as undocumented
+	- Document new setup command syntax
+	- Document install template command
+	- Document update comment
+	- Document list templates command
+	- Document remove template command
 

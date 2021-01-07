@@ -15,13 +15,64 @@ pip install git-improved
 ## :star: Additional commands
 
 ```
-git setup
+git template install [-h] [--branch BRANCH] [--user USER] [--token TOKEN] alias origin
 ```
 
-Initialize devops configuration.
-- Create a setup.cfg containing current version, and versioning config.
-- Create a github action to document releases based on changelog.
-- Create `docs/changelog.md`, and `docs/releases/`
+Install a template from a remote git repository.
+
+positional arguments:
+- **alias**: the name you want to use locally to reference this template
+- **origin**: url of the repository where target template is hosted
+
+optional arguments:
+- **--branch BRANCH**: branch of the repo containing the template (default: main)
+- **--user USER**: username used to autenticate if required
+- **--token TOKEN**: pass a token or password to authenticate if required
+
+---
+
+```
+git template list [-h] [search]
+```
+
+List available templates.
+
+positional arguments:
+- **search**: (optional) python-style regex that can be used to filter output
+
+---
+
+```
+git template update [-h] [-v] [templates [templates ...]]
+```
+
+Pull last version of the template from its git repository.
+
+positional arguments:
+- **templates**: (optional) if you pass a list of templates, only these templates will be updated...
+
+optional arguments:
+- **--verbose**: display additional informations concerning updated templates...
+
+---
+
+```
+git template rm [-h] templates [templates ...]
+```
+
+Remove templates
+
+positional arguments:
+- **templates**: alias(es) of the template(s) to remove
+---
+
+```
+git setup --template <template_alias> DIRECTORY
+```
+
+Initialize project structure.
+- **template_alias**: alias of the template used to initialize project structure.
+- **directory**: path to the folder where project must be initialized. (may be . for current folder)
 
 ---
 
