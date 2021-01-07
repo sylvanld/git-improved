@@ -7,7 +7,7 @@ def load_long_description():
         content = readme.read()
     
     for icon, icon_url in GITHUB_ICONS_URLS.items():
-        content.replace(icon, f'<img src="{icon_url}">')
+        content = content.replace(icon, f'<img src="{icon_url}">')
 
     return content
 
