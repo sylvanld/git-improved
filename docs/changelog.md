@@ -166,3 +166,5 @@
 	- Add a list of used github icons
 	- Replace github style icons in markdown when loading for pypi
 
+## [0.1.4] - 2021-01-07
+
