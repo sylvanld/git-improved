@@ -127,7 +127,7 @@
 	- Use shell-menu to prompt branch to delete in cancel interactive mode
 - Add interactive unrelease using new menu
 
-## [Unreleased]
+## [0.1.1] - 2021-01-07
 
 **Feature**
 
