@@ -158,7 +158,7 @@
 
 - Remove old tqdm import that break template command
 
-## [Unreleased]
+## [0.1.3] - 2021-01-07
 
 **Bugfix**
 
