@@ -18,6 +18,11 @@ class TemplateCommand(metaclass=Command):
         install_parser.add_argument("--user", help="username used to autenticate if required")
         install_parser.add_argument("--token", help="pass a token or password to authenticate if required")
 
+        local_install_parser = subparsers.add_parser("local", help="install a template from a local source")
+        local_install_parser.add_argument("alias", help="the name you want to use locally to reference this template")
+        local_install_parser.add_argument("source", help="local path where target template is located")
+        local_install_parser.add_argument("-u", "--upgrade", action="store_true", help="update the given template")
+
         update_parser = subparsers.add_parser("update", help="update given templates (default to all).")
         update_parser.add_argument("templates", nargs="*", help="if you pass a list of templates, only these templates will be updated...")
         update_parser.add_argument("-v", "--verbose", action="store_true", help="(verbose) display additional informations...")
@@ -34,13 +39,15 @@ class TemplateCommand(metaclass=Command):
         if not args.command:
             raise ValidationError('You must specify a command')
 
-    def run(*, command, alias=None, search=None, branch=None, user=None, token=None, origin=None, templates=None, verbose=False):
+    def run(*, command, alias=None, search=None, branch=None, user=None, token=None, origin=None, source=None, upgrade=None, templates=None, verbose=False):
         git_template = Template()
 
         if command == "install":
             # ensure that user can read this repository (=> public repo or proper authentication)
             GitCredentials().require_credentials(repository=origin)
             git_template.install(template=alias, origin=origin, branch=branch)
+        elif command == "local":
+            git_template.local_install(template=alias, source=source, upgrade=upgrade)
         elif command == "update":
             templates = templates if templates else git_template.search()
             for template in templates:
