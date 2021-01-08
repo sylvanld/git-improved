@@ -170,3 +170,10 @@
 
 ## [0.1.5] - 2021-01-07
 
+## [Unreleased]
+
+**Bugfix**
+
+- No template available
+	- Print a message when the lenght template list is 0
+

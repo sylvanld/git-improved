@@ -47,7 +47,10 @@ class TemplateCommand(metaclass=Command):
                 git_template.update(template, verbose=verbose)
         elif command == "list":
             templates = git_template.search(query=search)
-            display_table(templates)
+            if len(templates) == 0:
+                print("no templates available")
+            else:
+                display_table(templates)
         elif command == "rm":
             for template in templates:
                 git_template.remove(template)
