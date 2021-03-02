@@ -183,3 +183,8 @@
 	- Add a local installation of templates
 	- Add an update option to upgrade local templates from local source
 
+**Structure**
+
+- Distinct workflow and setup cmd
+	- Moves file to workflow or setup directories
+

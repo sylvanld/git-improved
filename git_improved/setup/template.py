@@ -8,8 +8,8 @@ import importlib.util
 from getpass import getpass
 from distutils.dir_util import copy_tree, remove_tree
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-from .shell import check_output, silent_call
-from .git import get_remote_origin, count_changes_from_remote
+from ..shell import check_output, silent_call
+from ..git import get_remote_origin, count_changes_from_remote
 
 
 def load_environment(template_path):

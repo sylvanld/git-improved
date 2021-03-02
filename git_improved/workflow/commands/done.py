@@ -2,10 +2,10 @@ import re
 import uuid
 import argparse
 import subprocess
-from ..command import Command
-from ..constants import BRANCHES_PREFIXES, CATEGORIES_ICONS
-from ..changelog import Changelog
-from ..git import (
+from ...command import Command
+from ...constants import BRANCHES_PREFIXES, CATEGORIES_ICONS
+from ...changelog import Changelog
+from ...git import (
     get_current_branch, merge_squash, get_current_branch_commits,
     ensure_git_initialized, ensure_working_tree_clean, ensure_branch_mergeable
 )

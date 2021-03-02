@@ -1,11 +1,11 @@
 import re
 import argparse
 import subprocess
-from ..command import Command
-from ..changelog import Changelog
-from ..constants import CATEGORIES_ICONS
-from ..exceptions import ValidationError
-from ..git import get_current_branch, ensure_main_branch
+from ...command import Command
+from ...changelog import Changelog
+from ...constants import CATEGORIES_ICONS
+from ...exceptions import ValidationError
+from ...git import get_current_branch, ensure_main_branch
 
 
 # custom type used to parse semver

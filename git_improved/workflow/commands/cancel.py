@@ -1,8 +1,8 @@
 import argparse
 import subprocess
-from ..menu import Menu
-from ..command import Command
-from ..git import get_local_branches, get_remote_branches, get_current_branch, delete_branch
+from ...menu import Menu
+from ...command import Command
+from ...git import get_local_branches, get_remote_branches, get_current_branch, delete_branch
 
 
 def select_branches():

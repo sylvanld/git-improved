@@ -1,9 +1,9 @@
 import argparse
 
-from ..exceptions import ValidationError
-from ..command import Command
-from ..template import Template, GitCredentials
-from ..shell import display_table
+from ...exceptions import ValidationError
+from ...command import Command
+from ...template import Template, GitCredentials
+from ...shell import display_table
 
 
 class TemplateCommand(metaclass=Command):
