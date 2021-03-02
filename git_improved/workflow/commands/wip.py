@@ -1,7 +1,7 @@
 import argparse
 import subprocess
-from ..command import Command
-from ..constants import BRANCHES_PREFIXES
+from ...command import Command
+from ...constants import BRANCHES_PREFIXES
 
 
 class WipCommand(metaclass=Command):

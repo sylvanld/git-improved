@@ -1,11 +1,11 @@
 import re
 import argparse
 import subprocess
-from ..git import get_releases
-from ..menu import Menu
-from ..command import Command
-from ..changelog import Changelog
-from ..exceptions import ValidationError
+from ...git import get_releases
+from ...menu import Menu
+from ...command import Command
+from ...changelog import Changelog
+from ...exceptions import ValidationError
 
 
 def delete_release(version):

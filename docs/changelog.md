@@ -170,3 +170,21 @@
 
 ## [0.1.5] - 2021-01-07
 
+## [Unreleased]
+
+**Bugfix**
+
+- No template available
+	- Print a message when the lenght template list is 0
+
+**Enhancement**
+
+- Local install template
+	- Add a local installation of templates
+	- Add an update option to upgrade local templates from local source
+
+**Structure**
+
+- Distinct workflow and setup cmd
+	- Moves file to workflow or setup directories
+

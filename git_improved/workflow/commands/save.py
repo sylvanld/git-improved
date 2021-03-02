@@ -1,6 +1,6 @@
 import argparse
 import subprocess
-from ..command import Command
+from ...command import Command
 
 
 class SaveCommand(metaclass=Command):

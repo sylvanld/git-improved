@@ -1,15 +1,15 @@
 import os
 import re
 import json
-import shutil
 import requests
 import argparse
 import subprocess
 import importlib.util
 from getpass import getpass
+from distutils.dir_util import copy_tree, remove_tree
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-from .shell import check_output, silent_call
-from .git import get_remote_origin, count_changes_from_remote
+from ..shell import check_output, silent_call
+from ..git import get_remote_origin, count_changes_from_remote
 
 
 def load_environment(template_path):
@@ -229,7 +229,30 @@ class Template:
         subprocess.call(['git', 'checkout', '-b', branch])
         subprocess.call(['git', 'pull', 'origin', branch])
         subprocess.call(['git', 'branch', '--set-upstream-to=origin/%s'%branch, branch])
-            
+    
+    def local_install(self, *, template:str, source:str, upgrade:bool):
+        
+        template_path = os.path.join(self.templates_directory, template)
+
+        # ensure that --upgrade is used and the template directory exist
+        if (upgrade is True) and (os.path.isdir(template_path) is True):
+            self.remove(template=template)
+        
+        self.manifest.add_template(template)
+        os.makedirs(template_path)
+
+        source_path = ""
+        
+        if source.startswith(".") is True:
+            source_path = os.path.abspath(source)
+        else:
+            source_path = source
+
+        if os.path.isdir(source_path) is False:
+            raise NotADirectoryError()
+        
+        copy_tree(source_path, template_path)
+        print('template upgraded:' if upgrade is True else 'template installed', template)
 
     def update(self, template, verbose=False):        
         template_path = os.path.join(self.templates_directory, template)
@@ -253,7 +276,7 @@ class Template:
         try:
             template_path = os.path.join(self.templates_directory, template)
             self.manifest.remove_template(template)
-            shutil.rmtree(template_path)
+            remove_tree(template_path)
         except FileNotFoundError as e:
             print("[Warning] %s not found!"%template_path)
         print('template removed:', template)
