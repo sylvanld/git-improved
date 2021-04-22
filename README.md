@@ -20,6 +20,8 @@ git template install [-h] [--branch BRANCH] [--user USER] [--token TOKEN] alias 
 
 Install a template from a remote git repository.
 
+[Have a look at my own templates](https://templates.sylvan.ovh/templates/python-fastapi.html)
+
 positional arguments:
 - **alias**: the name you want to use locally to reference this template
 - **origin**: url of the repository where target template is hosted
